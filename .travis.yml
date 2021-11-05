@@ -3,16 +3,16 @@ sudo: required
 services:
   - docker
 
-before_install: # before we start to run our test what to do
+#before_install: # before we start to run our test what to do
   #- docker-compose -t vivekkrai/docker-react -f Dockerfile.dev up --build 
-  - docker build -t vivekkrai/react-test -f Dockerfile.dev ./client
+#  - docker build -t vivekkrai/react-test -f Dockerfile.dev ./client
 script:
-  - docker run -e CI=true vivekkrai/react-test npm run test -- --coverage
-after_success:
-  - docker build -t vivekkrai/multi-client ./client
+#  - docker run -e CI=true vivekkrai/react-test npm run test -- --coverage
+#after_success:
   - docker build -t vivekkrai/multi-nginx ./nginx
   - docker build -t vivekkrai/multi-server ./server
   - docker build -t vivekkrai/multi-worker ./worker
+  - docker build -t vivekkrai/multi-client ./client
   # Log in to the docker CLI 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push the same to Docker hub
